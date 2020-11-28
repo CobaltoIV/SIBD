@@ -17,6 +17,8 @@ print('<title>Lab 09</title>')
 print('</head>')
 print('<body>')
 
+print('<h1><a href="supervisorchange.cgi"> Back to Supervisor Change</a></h1>')
+
 # The string has the {}, the variables inside format() will replace the {}
 print('<h3>Change supervisor for substation {} {} in {}</h3>'.format(lati,longi,locality))
 
