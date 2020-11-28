@@ -20,7 +20,7 @@ print('<head>')
 print('<title>Lab 09</title>')
 print('</head>')
 print('<body>')
-print('<h1><a href="supervisorchange.cgi"> Back to Supervisor Change</a></h1>')
+print('<h1><a href="substation.cgi"> Back to Supervisor Change</a></h1>')
 connection = None
 try:
     # Creating connection

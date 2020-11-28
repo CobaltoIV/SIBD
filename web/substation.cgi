@@ -9,9 +9,10 @@ print('<head>')
 print('<title>Substation</title>')
 print('</head>')
 print('<body>')
-print('<h3>Substations</h3>')
-
 print('<h1><a href="index.html"> Back to Index</a></h1>')
+print('<h2>Substations</h2>')
+
+
 connection = None
 try:
 	# Creating connection
@@ -21,7 +22,7 @@ try:
 	sql = 'SELECT name, address FROM supervisor;'
 	cursor.execute(sql)
 	result = cursor.fetchall()
-	print('<h4>Add Substation</h4>')
+	print('<h3>Add Substation</h3>')
 	print('<form action = "insertsubstation.cgi" method="post">')
 	print('<p>Locality :<input type = "text" name="locality"/></p>')
 	print('<p>Latitude :<input type = "number" max = 180 min =-180 step = 0.000001 name="gpslat"/></p>')
@@ -34,6 +35,8 @@ try:
 	print('</form>')
 	# Making query
 
+	print('<h3>List Substation</h3>')
+	print('<h4>Latitude | Longitude | Locality | Supervisor Name | Supervisor Address</h4>')
 	sql = 'SELECT * FROM substation;'
 	cursor.execute(sql)
 	result = cursor.fetchall()
@@ -48,6 +51,7 @@ try:
 		# The string has the {}, the variables inside format() will replace the {}
 			print('<td>{}</td>'.format(value))
 		print('<td><a href="removesubstation.cgi?gpslat={}&gpslong={}">Delete</a></td>'.format(row[0],row[1]))
+		print('<td><a href="changesupper.cgi?gpslat={}&gpslong={}&locality={}&sname={}&saddress={}">Change Supervisor</a></td>'.format(row[0],row[1],row[2],row[3],row[4]))
 		print('</tr>')
 	print('</table>')
 

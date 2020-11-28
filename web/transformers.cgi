@@ -9,16 +9,16 @@ print('<head>')
 print('<title>Transformers</title>')
 print('</head>')
 print('<body>')
-print('<h3>Transformers</h3>')
 
 print('<h1><a href="index.html"> Back to Index</a></h1>')
+print('<h2>Transformers</h2>')
 connection = None
 try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
 
-    print('<h4>Add Transformer</h4>')
+    print('<h3>Add Transformer</h3>')
     print('<form action = "insertransformer.cgi" method="post">')
     print('<p>pv :<input type = "number" name="pv"/></p>')
     print('<p>sv :<input type = "number" name="sv"/></p>')
@@ -76,6 +76,8 @@ try:
     print('<p><input type = "submit" name="Submit"/></p>')
     print('</form>')
     # Making query
+    print('<h3>List Transformer</h3>')
+    print('<h4> ID | pv | sv | Latitude | Longitude | Busbar1 | Busbar2 </h4>')
 
     sql = 'SELECT * FROM transformer;'
     cursor.execute(sql)

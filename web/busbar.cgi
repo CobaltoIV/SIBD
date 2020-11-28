@@ -10,9 +10,8 @@ print('<title>Busbar</title>')
 print('</head>')
 print('<body>')
 print('<h1><a href="index.html"> Back to Index</a></h1>')
-print('<h3>Busbars</h3>')
 
-
+print('<h2>Busbars</h2>')
 
 connection = None
 try:
@@ -21,7 +20,7 @@ try:
 	cursor = connection.cursor()
 	# Making query
 
-	print('<h4>Add Busbars</h4>')
+	print('<h3>Add Busbars</h3>')
 	print('<form action = "insertbusbar.cgi" method="post">')
 	print('<p>ID :<select name="id"/></p>')
 	sql = """
@@ -42,7 +41,8 @@ try:
 	print('</form>')
 
 
-	print('<h4>List Busbars</h4>')
+	print('<h3>List Busbars</h3>')
+	print('<h4> ID | Voltage</h4>')
 	sql = 'SELECT * FROM busbar;'
 	cursor.execute(sql)
 	result = cursor.fetchall()
