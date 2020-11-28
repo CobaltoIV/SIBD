@@ -9,15 +9,9 @@ print('<head>')
 print('<title>Busbar</title>')
 print('</head>')
 print('<body>')
+print('<h1><a href="index.html"> Back to Index</a></h1>')
 print('<h3>Busbars</h3>')
 
-
-print('<h4>Add Busbars</h4>')
-print('<form action = "insertbusbar.cgi" method="post">')
-print('<p>ID :<input type = "text" name="id"/></p>')
-print('<p>Voltage :<input type = "number" name="voltage"/></p>')
-print('<p><input type = "submit" name="Submit"/></p>')
-print('</form>')
 
 
 connection = None
@@ -26,6 +20,29 @@ try:
 	connection = psycopg2.connect(login.credentials)
 	cursor = connection.cursor()
 	# Making query
+
+	print('<h4>Add Busbars</h4>')
+	print('<form action = "insertbusbar.cgi" method="post">')
+	print('<p>ID :<select name="id"/></p>')
+	sql = """
+		select id
+		from element
+		where id not in (select id from transformer t)
+		and id not in (select id from line l)
+		and id not in (select id from busbar);
+		"""
+	cursor.execute(sql)
+	result = cursor.fetchall()
+	for row in result:
+		print(
+			'<option value ={}>{}</option>'.format(row[0],row[0]))
+	print('</select></p>')
+	print('<p>Voltage :<input type = "number" name="voltage"/></p>')
+	print('<p><input type = "submit" name="Submit"/></p>')
+	print('</form>')
+
+
+	print('<h4>List Busbars</h4>')
 	sql = 'SELECT * FROM busbar;'
 	cursor.execute(sql)
 	result = cursor.fetchall()

@@ -1,10 +1,11 @@
 #!/usr/bin/python3
+import psycopg2
+
+import login
 import cgi
 
 form = cgi.FieldStorage()
 
-name = form.getvalue('sname')
-address = form.getvalue('saddress')
 lati = form.getvalue('gpslat')
 longi = form.getvalue('gpslong')
 locality = form.getvalue('locality')
@@ -16,17 +17,40 @@ print('<title>Lab 09</title>')
 print('</head>')
 print('<body>')
 
-# The string has the {}, the variables inside format() will replace the {}
-print('<h3>Change supervisor for substation {} {} in {} ......{},{}</h3>'.format(lati,longi,locality,name,address))
+print('<h1><a href="supervisorchange.cgi"> Back to Supervisor Change</a></h1>')
 
-# The form will send the info needed for the SQL query
-print('<form action="updatesupervisor.cgi" method="post">')
-print('<p><input type="hidden" name="gpslat" value="{}"/></p>'.format(lati))
-print('<p><input type="hidden" name="gpslong" value="{}"/></p>'.format(longi))
-print('<p>New Name: <input type="text" name="sname"/></p>')
-print('<p>New address: <input type="text" name="saddress"/></p>')
-print('<p><input type="submit" value="Submit"/></p>')
-print('</form>')
+# The string has the {}, the variables inside format() will replace the {}
+print('<h3>Change supervisor for substation {} {} in {}</h3>'.format(lati,longi,locality))
+
+try:
+	# Creating connection
+	connection = psycopg2.connect(login.credentials)
+	cursor = connection.cursor()
+
+	sql = 'SELECT name, address FROM supervisor;'
+	cursor.execute(sql)
+	result = cursor.fetchall()
+	print('<form action="updatesupervisor.cgi" method="post">')
+	print('<p><input type="hidden" name="gpslat" value="{}"/></p>'.format(lati))
+	print('<p><input type="hidden" name="gpslong" value="{}"/></p>'.format(longi))
+	print('<p>Supervisor Name and Address :<select name="super"/>')
+	for row in result:
+		print('<option value ="{},{}">{},{}</option>'.format(row[0],row[1],row[0],row[1]))
+	print('</select></p>')
+	print('<p><input type = "submit" name="Submit"/></p>')
+	print('</form>')
+	# Making query
+
+	# Closing connection
+	cursor.close()
+except Exception as e:
+	# Print errors on the webpage if they occur
+	print('<h1>An error occurred.</h1>')
+	print('<p>{}</p>'.format(e))
+finally:
+	if connection is not None:
+		connection.close()
+
 
 print('</body>')
 print('</html>')

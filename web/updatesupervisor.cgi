@@ -2,16 +2,17 @@
 import psycopg2, cgi
 import login
 
-print('Location: ./supervisorchange.cgi')
-print()
+#print('Location: ./supervisorchange.cgi')
+#print()
 
 form = cgi.FieldStorage()
 #getvalue uses the names from the form in previous page
-name = form.getvalue('sname')
-address = form.getvalue('saddress')
 lati = form.getvalue('gpslat')
 longi = form.getvalue('gpslong')
-
+super = form.getvalue('super')
+words = super.split(',')
+name = words[0]
+address = words[1]
 
 print('Content-type:text/html\n\n')
 print('<html>')
@@ -19,6 +20,7 @@ print('<head>')
 print('<title>Lab 09</title>')
 print('</head>')
 print('<body>')
+print('<h1><a href="supervisorchange.cgi"> Back to Supervisor Change</a></h1>')
 connection = None
 try:
     # Creating connection

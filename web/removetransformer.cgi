@@ -2,31 +2,30 @@
 import psycopg2, cgi
 import login
 
-
+#print('Location: ./busbar.cgi')
+#print()
 form = cgi.FieldStorage()
 #getvalue uses the names from the form in previous page
 id = form.getvalue('id')
-voltage = form.getvalue('voltage')
 print('Content-type:text/html\n\n')
 print('<html>')
 print('<head>')
-print('<title>Lab 09</title>')
+print('<title>Project</title>')
 print('</head>')
 print('<body>')
 print('<h1><a href="index.html"> Back to Index</a></h1>')
-print('<h2><a href="busbar.cgi"> Back to Busbars</a></h2>')
+print('<h1><a href="transformers.cgi"> Back to Transformers</a></h1>')
 connection = None
 try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
     # Making query
-    sql = 'INSERT INTO busbar VALUES(%s , %s);'
-    data = (id,voltage)
+    sql = 'DELETE FROM transformer WHERE id = %s;' 
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % data))
+    print('<p>{}</p>'.format(sql % id))
     # Feed the data to the SQL query as follows to avoid SQL injection
-    cursor.execute(sql, data)
+    cursor.execute(sql , [id])
     # Commit the update (without this step the database will not change)
     connection.commit()
     # Closing connection

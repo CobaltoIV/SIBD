@@ -11,6 +11,7 @@ print('</head>')
 print('<body>')
 print('<h3>Substations</h3>')
 
+print('<h1><a href="index.html"> Back to Index</a></h1>')
 connection = None
 try:
 	# Creating connection
