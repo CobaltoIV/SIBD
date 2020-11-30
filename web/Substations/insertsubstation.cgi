@@ -31,11 +31,13 @@ try:
     sql = 'INSERT INTO substation VALUES(%s,%s,%s,%s,%s);' #(lat,long,locality,name,address)
     data = (gpslat,gpslong,locality,name,address)
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % data))
+    #print('<p>{}</p>'.format(sql % data))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)
     connection.commit()
+    print('<p> SUCCESS</p>')
+
     # Closing connection
     cursor.close()
 except Exception as e:

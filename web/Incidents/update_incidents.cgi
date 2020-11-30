@@ -27,11 +27,12 @@ try:
     sql = 'UPDATE incident SET description = %s WHERE id = %s  AND instant = %s;'
     data = (incident_description, incident_id, incident_instant)
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % data))
+    #print('<p>{}</p>'.format(sql % data))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)
     connection.commit()
+    print('<p> SUCCESS</p>')
     # Closing connection
     cursor.close()
 except Exception as e:

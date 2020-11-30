@@ -23,15 +23,14 @@ try:
 		SELECT id FROM transformer
 		UNION
 		SELECT id FROM busbar;
-		"""	
-		
+		"""
+
 	cursor.execute(sql)
 	result = cursor.fetchall()
-	# 
 	print('<h3>Add Incident</h3>')
 	print('<form action = "insert_incidents.cgi" method="post">')
-	print('<p>Instant:<input type = "datetime-local" name="instant"/></p>')
-	print('<p>Severity:<input type = "number" max = "10" min = "0" step = "1" name="severity"/></p>')
+	print('<p>Instant:<input type = "datetime-local" name="instant" required/></p>')
+	print('<p>Severity:<input type = "text" maxlength = "30" name="severity"/></p>')
 	print('<p>Description:<input type = "text" name="description"/></p>')
 	print('<p>ID:<select name="id"/>')
 	for row in result:
@@ -47,7 +46,7 @@ try:
 		WHERE id NOT IN(
 			SELECT id FROM lineincident
 		);
-		""" 
+		"""
 	cursor.execute(sql)
 	result = cursor.fetchall()
 

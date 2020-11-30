@@ -20,13 +20,19 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    # Making query
     sql = 'DELETE FROM busbar WHERE id = %s;' 
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % bbid))
+    #print('<p>{}</p>'.format(sql % bbid))
+    # Feed the data to the SQL query as follows to avoid SQL injection
+    cursor.execute(sql , [bbid])
+    # Making query
+    sql = 'DELETE FROM element WHERE id = %s;' 
+    # The string has the {}, the variables inside format() will replace the {}
+    #print('<p>{}</p>'.format(sql % bbid))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , [bbid])
     # Commit the update (without this step the database will not change)
+    print('<p> SUCCESS</p>')
     connection.commit()
     # Closing connection
     cursor.close()

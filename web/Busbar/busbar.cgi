@@ -23,21 +23,8 @@ try:
 
 	print('<h3>Add Busbars</h3>')
 	print('<form action = "insertbusbar.cgi" method="post">')
-	print('<p>ID :<select name="id"/></p>')
-	sql = """
-		select id
-		from element
-		where id not in (select id from transformer t)
-		and id not in (select id from line l)
-		and id not in (select id from busbar);
-		"""
-	cursor.execute(sql)
-	result = cursor.fetchall()
-	for row in result:
-		print(
-			'<option value ={}>{}</option>'.format(row[0],row[0]))
-	print('</select></p>')
-	print('<p>Voltage :<input type = "number" name="voltage"/></p>')
+	print('<p>ID :<input type = "text" maxlength = 10 name="id" required/></p>')
+	print('<p>Voltage :<input type = "number" min = 0  step = 0.0001 name="voltage" required/></p>')
 	print('<p><input type = "submit" name="Submit"/></p>')
 	print('</form>')
 

@@ -28,11 +28,12 @@ try:
     sql = 'INSERT INTO incident VALUES(%s,%s,%s,%s);' #(instant,id,description,severity)
     data = (incident_instant,incident_id,incident_description,incident_severity)
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % data))
+    #print('<p>{}</p>'.format(sql % data))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)
     connection.commit()
+    print('<p> SUCCESS</p>')
     # Closing connection
     cursor.close()
 except Exception as e:

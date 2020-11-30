@@ -25,8 +25,8 @@ try:
 	print('<h3>Add Substation</h3>')
 	print('<form action = "insertsubstation.cgi" method="post">')
 	print('<p>Locality :<input type = "text" name="locality"/></p>')
-	print('<p>Latitude :<input type = "number" max = 180 min =-180 step = 0.000001 name="gpslat"/></p>')
-	print('<p>Longitude :<input type = "number" max = 90 min =-90 step = 0.000001 name="gpslong"/></p>')
+	print('<p>Latitude :<input type = "number" max = 180 min =-180 step = 0.000001 name="gpslat" required/></p>')
+	print('<p>Longitude :<input type = "number" max = 90 min =-90 step = 0.000001 name="gpslong" required/></p>')
 	print('<p>Supervisor Name and Address :<select name="super"/>')
 	for row in result:
 		print('<option value ="{},{}">{},{}</option>'.format(row[0],row[1],row[0],row[1]))

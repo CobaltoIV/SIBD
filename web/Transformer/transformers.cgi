@@ -19,9 +19,27 @@ try:
     cursor = connection.cursor()
 
     print('<h3>Add Transformer</h3>')
-    print('<form action = "insertransformer.cgi" method="post">')
-    print('<p>pv :<input type = "number" name="pv"/></p>')
-    print('<p>sv :<input type = "number" name="sv"/></p>')
+    print('<form action = "choosebb.cgi" method="post">')
+    print('<p>ID :<input type = "text" maxlength = 10 name="id" required/></p>')
+    
+    sql = """
+        select distinct voltage
+        from busbar
+        """
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    
+    print('<p>pv :<select name="pv"/></p>')
+    for row in result:
+        print(
+            '<option value ="{}">{}</option>'.format(row[0],row[0]))
+    print('</select></p>')
+    
+    print('<p>sv :<select name="sv"/></p>')
+    for row in result:
+        print(
+            '<option value ="{}">{}</option>'.format(row[0],row[0]))
+    print('</select></p>')
 
     print('<p>Latitude, Longitude :<select name="gpscoord"/>')
     sql = """
@@ -35,44 +53,6 @@ try:
             '<option value ="{},{}">{},{}</option>'.format(row[0],row[1],row[0],row[1]))
     print('</select></p>')
 
-    print('<p>ID :<select name="id"/>')
-    sql = """
-        select id
-        from element
-        where id not in (select id from transformer t)
-        and id not in (select id from line l)
-        and id not in (select id from busbar);
-        """
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    for row in result:
-        print(
-            '<option value={}>{}</option>'.format(row[0],row[0]))
-    print('</select></p>')
-
-    print('<p>Primary Busbar ID :<select name="bb1id"/>')
-    sql = """
-        select id
-        from busbar
-        """
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    for row in result:
-        print(
-            '<option value ={}>{}</option>'.format(row[0],row[0]))
-    print('</select></p>')
-
-    print('<p>Secondary Busbar :<select name="bb2id"/>')
-    sql = """
-        select id
-        from busbar
-        """
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    for row in result:
-        print(
-            '<option value ={}>{}</option>'.format(row[0],row[0]))
-    print('</select></p>')
     print('<p><input type = "submit" name="Submit"/></p>')
     print('</form>')
     # Making query

@@ -27,6 +27,12 @@ try:
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , [id])
     # Commit the update (without this step the database will not change)
+    sql = 'DELETE FROM element WHERE id = %s;' 
+    # The string has the {}, the variables inside format() will replace the {}
+    print('<p>{}</p>'.format(sql % id))
+    # Feed the data to the SQL query as follows to avoid SQL injection
+    cursor.execute(sql , [id])
+    # Commit the update (without this step the database will not change)
     connection.commit()
     # Closing connection
     cursor.close()

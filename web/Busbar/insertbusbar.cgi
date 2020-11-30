@@ -21,15 +21,22 @@ try:
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
     # Making query
-    sql = 'INSERT INTO busbar VALUES(%s , %s);'
+    ins_ele = 'INSERT INTO element VALUES(%s);'
+
+    cursor.execute(ins_ele, [id])
+
+    ins_bb = 'INSERT INTO busbar VALUES(%s , %s);'
+
     data = (id,voltage)
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % data))
+    #print('<p>{}</p>'.format(sql % data))
+    
     # Feed the data to the SQL query as follows to avoid SQL injection
-    cursor.execute(sql, data)
+    cursor.execute(ins_bb, data)
     # Commit the update (without this step the database will not change)
     connection.commit()
     # Closing connection
+    print('<p> SUCCESS</p>')
     cursor.close()
 except Exception as e:
     # Print errors on the webpage if they occur
