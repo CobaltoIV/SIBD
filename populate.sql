@@ -271,6 +271,9 @@ insert into element (id) values ('S-900');
 insert into element (id) values ('E-098');
 insert into element (id) values ('R-543');
 insert into element (id) values ('O-296');
+insert into element (id) values ('I-023');
+insert into element (id) values ('F-993');
+insert into element (id) values ('R-107');
 
 
 --Populate BusBars
@@ -413,9 +416,9 @@ insert into substation (locality, gpslong,gpslat, sname, saddress) values ('Yats
 insert into substation (locality, gpslong,gpslat, sname, saddress) values ('Rio Maior', -8.936379, 39.336775, 'Ricardo Antão', '456 Moscavide Street');
 insert into substation (locality, gpslong,gpslat, sname, saddress) values ('Prado', -46.4856642,19.40391, 'Hillyer Mole', '0685 2nd Alley');
 --Populate transformer
-INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('J-516',630,100,57.331693,12.1839966,'I-765','L-694');
-INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('E-363',630,100,-7.3630592,18.8071072,'Z-146','K-374');
-INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('O-471',630,100,7.9306264,-7.4517472,'K-949','N-194');
+INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('I-023',630,100,57.331693,12.1839966,'I-765','L-694');
+INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('F-993',630,100,-7.3630592,18.8071072,'Z-146','K-374');
+INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('R-107',630,100,7.9306264,-7.4517472,'K-949','N-194');
 INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('B-716',400,100,46.1839042,26.3216758,'Q-201','A-879');
 INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('A-048',630,100,52.1350237,6.4359118,'W-905','Q-598');
 INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('S-257',400,100,53.3666338,11.256439,'A-308','R-830');
