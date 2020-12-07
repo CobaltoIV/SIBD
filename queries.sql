@@ -25,12 +25,12 @@ WHERE (sname,saddress) NOT IN(
     WHERE gpslat <= 39.336775);
 -- 3 --
 
-SELECT e.id , COUNT(i.id)
-FROM element e LEFT OUTER JOIN incident i ON e.id=i.id
-GROUP BY e.id
-HAVING COUNT(i.id) <= ALL(
+SELECT id , COUNT(id)
+FROM incident 
+GROUP BY id
+HAVING COUNT(id) <= ALL(
         SELECT COUNT(i2.id)
-        FROM element e LEFT OUTER JOIN incident i2 ON e.id=i2.id
+        FROM  incident i2 
         GROUP BY i2.id);
 
 -- 4 --

@@ -24,7 +24,7 @@ try:
 	result = cursor.fetchall()
 	print('<h3>Add Substation</h3>')
 	print('<form action = "insertsubstation.cgi" method="post">')
-	print('<p>Locality :<input type = "text" name="locality"/></p>')
+	print('<p>Locality :<input type = "text" maxlength = 80 name="locality"/></p>')
 	print('<p>Latitude :<input type = "number" max = 180 min =-180 step = 0.000001 name="gpslat" required/></p>')
 	print('<p>Longitude :<input type = "number" max = 90 min =-90 step = 0.000001 name="gpslong" required/></p>')
 	print('<p>Supervisor Name and Address :<select name="super"/>')
@@ -60,7 +60,7 @@ try:
 except Exception as e:
 	# Print errors on the webpage if they occur
 	print('<h1>An error occurred.</h1>')
-	print('<p>{}</p>'.format(e))
+	#print('<p>{}</p>'.format(e))
 finally:
 	if connection is not None:
 		connection.close()

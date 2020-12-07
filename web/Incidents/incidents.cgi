@@ -31,7 +31,7 @@ try:
 	print('<form action = "insert_incidents.cgi" method="post">')
 	print('<p>Instant:<input type = "datetime-local" name="instant" required/></p>')
 	print('<p>Severity:<input type = "text" maxlength = "30" name="severity"/></p>')
-	print('<p>Description:<input type = "text" name="description"/></p>')
+	print('<p>Description:<input type = "text" maxlength = "250" name="description"/></p>')
 	print('<p>ID:<select name="id"/>')
 	for row in result:
 		print('<option value ={}>{}</option>'.format(row[0],row[0]))
@@ -68,7 +68,7 @@ try:
 except Exception as e:
 	# Print errors on the webpage if they occur
 	print('<h1>An error occurred.</h1>')
-	print('<p>{}</p>'.format(e))
+	#print('<p>{}</p>'.format(e))
 finally:
 	if connection is not None:
 		connection.close()

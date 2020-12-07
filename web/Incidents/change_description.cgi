@@ -20,7 +20,7 @@ print('<h3>Change Description for incident {}, {} </h3>'.format(instant, inciden
 print('<form action="update_incidents.cgi" method="post">')
 print('<p><input type="hidden" name="instant" value="{}"/></p>'.format(instant))
 print('<p><input type="hidden" name="id" value="{}"/></p>'.format(incident_id))
-print('<p>New Description: <input type="text" name="description"/></p>')
+print('<p>New Description: <input type="text" maxlength = 250 name="description"/></p>')
 print('<p><input type="submit" value="Submit"/></p>')
 print('</form>')
 
