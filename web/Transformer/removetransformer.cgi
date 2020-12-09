@@ -23,19 +23,20 @@ try:
     # Making query
     sql = 'DELETE FROM transformer WHERE id = %s;' 
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % id))
+    #print('<p>{}</p>'.format(sql % id))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , [id])
     # Commit the update (without this step the database will not change)
     sql = 'DELETE FROM element WHERE id = %s;' 
     # The string has the {}, the variables inside format() will replace the {}
-    print('<p>{}</p>'.format(sql % id))
+    #print('<p>{}</p>'.format(sql % id))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , [id])
     # Commit the update (without this step the database will not change)
     connection.commit()
     # Closing connection
     cursor.close()
+    print('<p> SUCCESS</p>')
 except Exception as e:
     # Print errors on the webpage if they occur
     print('<h1>An error occurred.</h1>')
