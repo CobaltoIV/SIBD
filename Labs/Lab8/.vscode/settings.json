@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "Labs",
+            "group": "Sibd",
+            "database": "tests",
+            "username": "postgres"
+        }
+    ]
+}
