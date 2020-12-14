@@ -12,6 +12,8 @@ print('<head>')
 print('<title>Incident</title>')
 print('</head>')
 print('<body>')
+print('<h1><a href="../index.html"> Back to Index</a></h1>')
+print('<h2><a href="incidents.cgi"> Back to Incidents</a></h2>')
 
 # The string has the {}, the variables inside format() will replace the {}
 print('<h3>Change Description for incident {}, {} </h3>'.format(instant, incident_id))

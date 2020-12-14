@@ -2,9 +2,10 @@
 import psycopg2, cgi
 import login
 
-
+"""
 print('Location: ./incidents.cgi')
 print()
+"""
 
 form = cgi.FieldStorage()
 #getvalue uses the names from the form in previous page
@@ -18,6 +19,8 @@ print('<head>')
 print('<title>Incident</title>')
 print('</head>')
 print('<body>')
+print('<h1><a href="../index.html"> Back to Index</a></h1>')
+print('<h2><a href="incidents.cgi"> Back to Incidents</a></h2>')
 connection = None
 try:
     # Creating connection
