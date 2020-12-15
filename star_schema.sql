@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS d_reporter;
 
 CREATE TABLE d_reporter(
     id_reporter SERIAL,
-    name VARCHAR(80),
-    address VARCHAR(80),
+    name VARCHAR(80) NOT NULL,
+    address VARCHAR(80) NOT NULL,
     PRIMARY KEY (id_reporter)
 );
 CREATE TABLE d_time(
@@ -22,16 +22,16 @@ CREATE TABLE d_time(
 );
 CREATE TABLE d_location(
     id_location SERIAL,
-    latitude NUMERIC(9,6),
-    longitude NUMERIC(8,6),
-    locality VARCHAR(80),
+    latitude NUMERIC(9,6) NOT NULL,
+    longitude NUMERIC(8,6) NOT NULL,
+    locality VARCHAR(80) NOT NULL,
     PRIMARY KEY (id_location)
 );
 
 CREATE TABLE d_element(
     id_element SERIAL,
-    element_id VARCHAR(10),
-    element_type VARCHAR(15),
+    element_id VARCHAR(10) NOT NULL,
+    element_type VARCHAR(15) NOT NULL,
     PRIMARY KEY (id_element)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE f_incident(
     id_time INTEGER,
     id_location INTEGER,
     id_element INTEGER,
-    severity VARCHAR(30),
+    severity VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_reporter, id_time, id_location, id_element),
     FOREIGN KEY (id_reporter) REFERENCES d_reporter(id_reporter),
     FOREIGN KEY (id_time) REFERENCES d_time(id_time),
