@@ -51,6 +51,8 @@ CREATE OR REPLACE FUNCTION load_location_dim()
     RETURNS VOID AS
 $$
 BEGIN
+    -- 1st Entry for the Line and Busbar location
+    INSERT INTO d_location(latitude, longitude, locality) VALUES (0,0,'Unknown');
     INSERT INTO d_location(latitude, longitude, locality)
     SELECT gpslat as latitude, gpslong as longitude, locality
     from substation;
@@ -77,6 +79,8 @@ $$ LANGUAGE plpgsql;
 
 SELECT  load_element_dim();
 
+
+-- Load Fact table
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
 SELECT id_reporter, id_time, id_location, id_element, severity
 FROM (incident NATURAL JOIN analyses
@@ -92,3 +96,27 @@ FROM (incident NATURAL JOIN analyses
                          ON t.day = EXTRACT(DAY FROM i.instant) AND t.month = EXTRACT(MONTH FROM i.instant) AND
                             t.year = EXTRACT(YEAR FROM i.instant);
 
+
+INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
+SELECT id_reporter, id_time, 1, id_element, severity
+FROM (incident NATURAL JOIN analyses
+               NATURAL JOIN busbar) AS i
+         LEFT OUTER JOIN d_reporter r
+                         ON r.name = i.name AND r.address = i.address
+         LEFT OUTER JOIN d_element e
+                         ON e.element_id = i.id
+         LEFT OUTER JOIN d_time t
+                         ON t.day = EXTRACT(DAY FROM i.instant) AND t.month = EXTRACT(MONTH FROM i.instant) AND
+                            t.year = EXTRACT(YEAR FROM i.instant);
+
+INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
+SELECT id_reporter, id_time, 1, id_element, severity
+FROM (incident NATURAL JOIN analyses
+               NATURAL JOIN line) as i
+         LEFT OUTER JOIN d_reporter r
+                         ON r.name = i.name AND r.address = i.address
+         LEFT OUTER JOIN d_element e
+                         ON e.element_id = i.id
+         LEFT OUTER JOIN d_time t
+                         ON t.day = EXTRACT(DAY FROM i.instant) AND t.month = EXTRACT(MONTH FROM i.instant) AND
+                            t.year = EXTRACT(YEAR FROM i.instant);
