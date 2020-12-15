@@ -84,8 +84,7 @@ SELECT  load_element_dim();
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
 SELECT id_reporter, id_time, id_location, id_element, severity
 FROM (incident NATURAL JOIN analyses
-               NATURAL JOIN transformer
-               NATURAL JOIN substation) AS i
+               NATURAL JOIN transformer) AS i
          LEFT OUTER JOIN d_reporter r
                          ON r.name = i.name AND r.address = i.address
          LEFT OUTER JOIN d_location l
