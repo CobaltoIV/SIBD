@@ -59,3 +59,14 @@ create TRIGGER IC_5
     on analyses
     for each row
 execute procedure check_substation();
+
+-- Just add a check to the coordinates of the substation so that there are no invalid coordinates
+ALTER TABLE substation
+ADD CONSTRAINT long_lat_range_check
+CHECK (
+	gpslong BETWEEN -90 AND 90
+	AND gpslat BETWEEN -180 AND 180
+);
+
+-- Working with longitude and latitude ranges switched to not alter the schemaPart3.sql
+
