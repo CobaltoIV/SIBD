@@ -36,11 +36,11 @@ try:
     # Commit the update (without this step the database will not change)
     connection.commit()
     # Closing connection
-    print('<p> SUCCESS</p>')
+    print('<h3> SUCCESS</h3>')
     cursor.close()
 except Exception as e:
     # Print errors on the webpage if they occur
-    print('<h1>An error occurred.</h1>')
+    print('<h3>An error occurred.</h3>')
     #print('<p>{}</p>'.format(e))
 finally:
     if connection is not None:

@@ -32,13 +32,13 @@ try:
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , [bbid])
     # Commit the update (without this step the database will not change)
-    print('<p> SUCCESS</p>')
+    print('<h3> SUCCESS</h3>')
     connection.commit()
     # Closing connection
     cursor.close()
 except Exception as e:
     # Print errors on the webpage if they occur
-    print('<h1>An error occurred.</h1>')
+    print('<h3>An error occurred.</h3>')
     #print('<p>{}</p>'.format(e))
 finally:
     if connection is not None:
