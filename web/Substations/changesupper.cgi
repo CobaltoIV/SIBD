@@ -21,7 +21,7 @@ print('<h1><a href="../index.html"> Back to Index</a></h1>')
 print('<h2><a href="substation.cgi"> Back to Substations</a></h2>')
 
 # The string has the {}, the variables inside format() will replace the {}
-print('<h3>Change supervisor for substation {} {} in {}</h3>'.format(lati,longi,locality))
+print('<h3>Change supervisor for substation {},{} in {}</h3>'.format(lati,longi,locality))
 
 try:
 	# Creating connection
