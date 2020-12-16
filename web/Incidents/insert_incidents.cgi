@@ -17,7 +17,8 @@ print('<title>Project</title>')
 print('</head>')
 print('<body>')
 
-print('<h1><a href="incidents.cgi"> Back to Incidents</a></h1>')
+print('<h1><a href="../index.html"> Back to Index</a></h1>')
+print('<h2><a href="incidents.cgi"> Back to Incidents</a></h2>')
 
 connection = None
 try:

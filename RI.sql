@@ -67,6 +67,5 @@ CHECK (
 	gpslong BETWEEN -90 AND 90
 	AND gpslat BETWEEN -180 AND 180
 );
-
 -- Working with longitude and latitude ranges switched to not alter the schemaPart3.sql
 
