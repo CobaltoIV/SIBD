@@ -1,10 +1,11 @@
---  view   --
+-- 3 - View   --
 CREATE VIEW supp(sname,saddress,num_subs)
 AS
 SELECT sname,saddress, COUNT(*) AS num_subs
 FROM  substation
 GROUP BY sname, saddress;
 
+-- 4 - SQL Queries --
 -- 1 --
 select a.name, a.address
 from analyst a

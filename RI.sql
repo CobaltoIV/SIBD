@@ -7,20 +7,21 @@ declare
     bpv NUMERIC(7, 4);
     spv NUMERIC(7, 4);
 begin
+    -- Load corresponding busbar voltages into local variables
     select voltage from busbar where id = new.pbbid into bpv;
     select voltage from busbar where id = new.sbbid into spv;
-    if new.pv <> bpv then
+    if new.pv <> bpv then -- If the primary voltages don't match
         raise exception 'Primary busbar %s voltage does not match with primary voltage', new.pbbid;
-    elsif new.sv <> spv then
+    elsif new.sv <> spv then -- If the secondary voltages don't match
         raise exception 'Secondary busbar %s voltage does not match with secondary voltage', new.sbbid;
     end if;
-    return new;
+    return new; -- If everything is alright
 
 end;
 $$ language plpgsql;
 
 create TRIGGER IC_1_2
-    after
+    after -- Since an exception is raised everytime the condition is c«not checked before or after is irrelevant. The changes will always be rolled back
         update or insert
     on transformer
     for each row
@@ -37,14 +38,15 @@ declare
     sn   VARCHAR(80); -- name of substation supervisor
     sa   VARCHAR(80); -- address of substation supervisor
 begin
-    if new.id IN (select id from transformer) then
-        t_id := new.id;
+    if new.id IN (select id from transformer) then -- If the element is a transformer we need to check
+        t_id := new.id; -- save element id
+        -- Get the coordinates and supervisor data corresponding to the transformer in the incident
         select s.sname, s.saddress, t.gpslat, t.gpslong
         from transformer t
                  inner join substation s on s.gpslat = t.gpslat and s.gpslong = t.gpslong
         where t.id = t_id
         into sn,sa,lat,long;
-        if new.name = sn and new.address=sa then
+        if new.name = sn and new.address=sa then -- If they are the same then the integrity constrsint was violated
             raise exception 'Analyst cannot analyse incident since it belongs to one of the substations he supervises';
         end if;
     end if;
@@ -54,7 +56,7 @@ end;
 $$ language plpgsql;
 
 create TRIGGER IC_5
-    after
+    after -- Similarly to before the after or before is irrelevant.
         update or insert
     on analyses
     for each row
