@@ -44,7 +44,7 @@ try:
 	sql = """
 		SELECT * FROM incident
 		WHERE id NOT IN(
-			SELECT id FROM line
+			SELECT id FROM lineincident
 		);
 		"""
 	cursor.execute(sql)
