@@ -21,7 +21,7 @@ end;
 $$ language plpgsql;
 
 create TRIGGER IC_1_2
-    after -- Since an exception is raised everytime the condition is c«not checked before or after is irrelevant. The changes will always be rolled back
+    before -- Since an exception is raised everytime the condition is c«not checked before or after is irrelevant. The changes will always be rolled back
         update or insert
     on transformer
     for each row
@@ -56,7 +56,7 @@ end;
 $$ language plpgsql;
 
 create TRIGGER IC_5
-    after -- Similarly to before the after or before is irrelevant.
+    before -- Similarly to before the after or before is irrelevant.
         update or insert
     on analyses
     for each row
