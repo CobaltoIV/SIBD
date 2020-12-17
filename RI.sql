@@ -1,32 +1,16 @@
-DROP TRIGGER IF EXISTS IC_1_2 on transformer;
+-- IC2 and IC5 implementation
+ALTER TABLE busbar
+    ADD CONSTRAINT unique_c UNIQUE(id, voltage); -- must add this for next operatyion to work.
+ALTER TABLE transformer
+    -- if wanted uncomment the the next to lines to drop the previous foreign key constraints
+    --DROP CONSTRAINT transformer_pbbid_fkey,
+    --DROP CONSTRAINT transformer_sbbid_fkey,
+    ADD CONSTRAINT transformer_pbb_fkey FOREIGN KEY (pbbid, pv) REFERENCES busbar(id, voltage), -- add the voltage to the busbar id constraint
+    ADD CONSTRAINT transformer_sbb_fkey FOREIGN KEY (sbbid, sv) REFERENCES busbar(id, voltage); -- this way the busbar voltage must match the transformer voltage
 
 
-create or replace function match_voltage() returns trigger as
-$$
-declare
-    bpv NUMERIC(7, 4);
-    spv NUMERIC(7, 4);
-begin
-    -- Load corresponding busbar voltages into local variables
-    select voltage from busbar where id = new.pbbid into bpv;
-    select voltage from busbar where id = new.sbbid into spv;
-    if new.pv <> bpv then -- If the primary voltages don't match
-        raise exception 'Primary busbar %s voltage does not match with primary voltage', new.pbbid;
-    elsif new.sv <> spv then -- If the secondary voltages don't match
-        raise exception 'Secondary busbar %s voltage does not match with secondary voltage', new.sbbid;
-    end if;
-    return new; -- If everything is alright
 
-end;
-$$ language plpgsql;
-
-create TRIGGER IC_1_2
-    before -- Since an exception is raised everytime the condition is c«not checked before or after is irrelevant. The changes will always be rolled back
-        update or insert
-    on transformer
-    for each row
-execute procedure match_voltage();
-
+-- IC5 constraint implementation
 DROP TRIGGER IF EXISTS IC_5 on analyses;
 
 create or replace function check_substation() returns trigger as

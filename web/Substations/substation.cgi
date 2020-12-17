@@ -33,7 +33,7 @@ try:
 	print('</select></p>')
 	print('<p><input type = "submit" name="Submit"/></p>')
 	print('</form>')
-	# Making query
+	
 
 	print('<h3>List Substation</h3>')
 	print('<h4>Latitude | Longitude | Locality | Supervisor Name | Supervisor Address</h4>')

@@ -25,11 +25,9 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    # Making query
+    # Making the insert
     sql = 'INSERT INTO incident VALUES(%s,%s,%s,%s);' #(instant,id,description,severity)
     data = (incident_instant,incident_id,incident_description,incident_severity)
-    # The string has the {}, the variables inside format() will replace the {}
-    #print('<p>{}</p>'.format(sql % data))
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)

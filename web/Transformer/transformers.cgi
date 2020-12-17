@@ -63,8 +63,7 @@ try:
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
-    # Displaying results
-    # print('<p>{}</p>'.format(cursor.description(name)))
+    
     print('<table border="0" cellspacing="5">')
     for row in result:
         print('<tr>')

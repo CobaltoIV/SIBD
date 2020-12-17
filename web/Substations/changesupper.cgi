@@ -40,8 +40,6 @@ try:
 	print('</select></p>')
 	print('<p><input type = "submit" name="Submit"/></p>')
 	print('</form>')
-	# Making query
-
 	# Closing connection
 	cursor.close()
 except Exception as e:

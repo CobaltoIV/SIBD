@@ -27,11 +27,10 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    # Making query
+    # Making update
     sql = 'UPDATE substation SET sname = %s, saddress = %s WHERE gpslat = %s AND gpslong = %s;'
     data = (name, address,lati,longi)
-    # The string has the {}, the variables inside format() will replace the {}
-    #print('<p>{}</p>'.format(sql % data))
+    
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)

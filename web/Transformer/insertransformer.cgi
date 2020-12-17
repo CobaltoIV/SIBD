@@ -29,20 +29,17 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    
+
     ins_ele = 'INSERT INTO element VALUES(%s);'
 
     cursor.execute(ins_ele, [id])
-    
+
     # Making INSERT
 
     sql = 'INSERT INTO transformer VALUES(%s,%s,%s,%s,%s,%s,%s);' #(id,pv,sv,lat,long,bb1id,bb2id)
 
     data = (id,pv,sv,lat,long,bb1id,bb2id)
-    
-    # The string has the {}, the variables inside format() will replace the {}
-    #print('<p>{}</p>'.format(sql % data))
-    
+
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql, data)
     # Commit the update (without this step the database will not change)

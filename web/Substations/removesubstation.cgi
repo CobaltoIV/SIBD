@@ -21,11 +21,10 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    # Making query
+    # Making delete
     sql = 'DELETE FROM substation WHERE gpslat = %s AND gpslong = %s;' 
     data = (gpslat,gpslong)
-    # The string has the {}, the variables inside format() will replace the {}
-    #print('<p>{}</p>'.format(sql % data))
+    
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(sql , data)
     # Commit the update (without this step the database will not change)

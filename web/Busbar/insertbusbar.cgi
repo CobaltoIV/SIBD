@@ -20,16 +20,15 @@ try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
-    # Making query
+    # Insert into elemnet
     ins_ele = 'INSERT INTO element VALUES(%s);'
 
     cursor.execute(ins_ele, [id])
 
+    #Insert into busbar
     ins_bb = 'INSERT INTO busbar VALUES(%s , %s);'
 
     data = (id,voltage)
-    # The string has the {}, the variables inside format() will replace the {}
-    #print('<p>{}</p>'.format(sql % data))
     
     # Feed the data to the SQL query as follows to avoid SQL injection
     cursor.execute(ins_bb, data)

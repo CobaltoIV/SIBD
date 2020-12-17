@@ -574,8 +574,9 @@ insert into element (id) values ('Y-941');
 insert into element (id) values ('X-782');
 
  insert into element (id) values ('E-021');
- INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('E-021',400,220, -8.936379,39.336775,'Z-307','E-363');
+ INSERT INTO transformer(id, pv, sv, gpslong,gpslat, pbbid, sbbid) values('E-021',100,630, -8.936379,39.336775,'Z-307','E-363');
 
+DELETE FROM transformer WHERE id = 'E-021';
  INSERT INTO busbar(voltage, id) values(400,'Q-268');
  INSERT INTO busbar(voltage,id) values(630,'E-363');
  INSERT INTO busbar(voltage,id) values(100,'Z-307');

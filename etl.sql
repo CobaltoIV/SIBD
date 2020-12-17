@@ -7,21 +7,21 @@ $$
 DECLARE
     time_value TIMESTAMP;
 BEGIN
-    time_value := '2015-01-01 00:00:00';
-    WHILE time_value < '2030-01-01 00:00:00'
+    time_value := '2015-01-01 00:00:00'; -- Starting point of the time axis
+    WHILE time_value < '2030-01-01 00:00:00' -- End point of the time axis
         LOOP
             INSERT INTO d_time(year, trimester, month, week, week_day, day)
-            VALUES (EXTRACT(YEAR FROM time_value),
-                    CASE
+            VALUES (EXTRACT(YEAR FROM time_value), -- take year
+                    CASE -- take trimester
                         WHEN EXTRACT(MONTH FROM time_value) <= 3 THEN 1
                         WHEN EXTRACT(MONTH FROM time_value) BETWEEN 3 AND 6 THEN 2
                         WHEN EXTRACT(MONTH FROM time_value) BETWEEN 6 AND 9 THEN 3
                         ELSE 4
                         END,
-                    CAST(EXTRACT(MONTH FROM time_value) AS INTEGER),
-                    CAST(EXTRACT(WEEK FROM time_value) AS INTEGER),
-                    TO_CHAR(time_value, 'Day'),
-                    CAST(EXTRACT(DAY FROM time_value) AS INTEGER));
+                    CAST(EXTRACT(MONTH FROM time_value) AS INTEGER), -- take month
+                    CAST(EXTRACT(WEEK FROM time_value) AS INTEGER), -- take week
+                    TO_CHAR(time_value, 'Day'), -- take day name
+                    CAST(EXTRACT(DAY FROM time_value) AS INTEGER)); -- take day number
             time_value := time_value + INTERVAL '1 DAY';
         END LOOP;
 END;
@@ -51,7 +51,7 @@ CREATE OR REPLACE FUNCTION load_location_dim()
     RETURNS VOID AS
 $$
 BEGIN
-    -- 1st Entry for the Line and Busbar location
+    -- 1st Entry for the Line and Busbar unknown location
     INSERT INTO d_location(latitude, longitude, locality) VALUES (0,0,'Unknown');
     INSERT INTO d_location(latitude, longitude, locality)
     SELECT gpslat as latitude, gpslong as longitude, locality
@@ -81,6 +81,8 @@ SELECT  load_element_dim();
 
 
 -- Load Fact table
+
+-- transfromer incidents
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
 SELECT id_reporter, id_time, id_location, id_element, severity
 FROM (incident NATURAL JOIN analyses
@@ -95,7 +97,7 @@ FROM (incident NATURAL JOIN analyses
                          ON t.day = EXTRACT(DAY FROM i.instant) AND t.month = EXTRACT(MONTH FROM i.instant) AND
                             t.year = EXTRACT(YEAR FROM i.instant);
 
-
+-- busbar incidents
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
 SELECT id_reporter, id_time, 1, id_element, severity
 FROM (incident NATURAL JOIN analyses
@@ -108,6 +110,7 @@ FROM (incident NATURAL JOIN analyses
                          ON t.day = EXTRACT(DAY FROM i.instant) AND t.month = EXTRACT(MONTH FROM i.instant) AND
                             t.year = EXTRACT(YEAR FROM i.instant);
 
+-- line incidents
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)
 SELECT id_reporter, id_time, 1, id_element, severity
 FROM (incident NATURAL JOIN analyses
