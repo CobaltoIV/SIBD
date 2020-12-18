@@ -81,6 +81,8 @@ SELECT  load_element_dim();
 
 
 -- Load Fact table
+-- Using LEFT OUTER JOIN with the dimension tables since that's the way the theoretical class powerpoints do it
+-- But we can also use INNER JOIN, the result is the same
 
 -- transfromer incidents
 INSERT INTO f_incident(id_reporter, id_time, id_location, id_element, severity)

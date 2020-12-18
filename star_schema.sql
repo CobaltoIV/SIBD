@@ -49,8 +49,11 @@ CREATE TABLE f_incident(
     id_element INTEGER,
     severity VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_reporter, id_time, id_location, id_element),
+    -- Since data is consistent, foreign keys could be removed for optimization purposes, but inserting them just to be safe
     FOREIGN KEY (id_reporter) REFERENCES d_reporter(id_reporter),
     FOREIGN KEY (id_time) REFERENCES d_time(id_time),
     FOREIGN KEY (id_element) REFERENCES d_element(id_element),
     FOREIGN KEY (id_location) REFERENCES  d_location(id_location)
 );
+
+-- Since there is no time dimension we are considering no incident can occur at the same time, in the same element and be reported by the same analyst
