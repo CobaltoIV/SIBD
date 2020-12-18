@@ -1,4 +1,4 @@
--- IC2 and IC5 implementation
+-- IC1 and IC2 implementation
 ALTER TABLE busbar
     ADD CONSTRAINT unique_c UNIQUE(id, voltage); -- must add this for next operatyion to work.
 ALTER TABLE transformer
