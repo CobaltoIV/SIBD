@@ -49,7 +49,7 @@ CREATE TABLE f_incident(
     id_element INTEGER,
     severity VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_reporter, id_time, id_location, id_element),
-    -- Since data is consistent, foreign keys could be removed for optimization purposes, but inserting them just to be safe
+    -- Since data is consistent, foreign keys could be removed for optimization purposes, but it is not recommended
     FOREIGN KEY (id_reporter) REFERENCES d_reporter(id_reporter),
     FOREIGN KEY (id_time) REFERENCES d_time(id_time),
     FOREIGN KEY (id_element) REFERENCES d_element(id_element),
