@@ -24,14 +24,14 @@ where not exists(select id,
 ;
 
 -- 2 --
-
+--Supervisors that do not supervise substations south of Rio Maior. (Must be supervising at least one substation to be elligible)
 SELECT DISTINCT sname, saddress
 FROM substation
 WHERE (sname, saddress) NOT IN (
     SELECT sname,
            saddress -- supervisors from substations south of Rio Maior
     FROM substation
-    WHERE gpslat <= 39.336775);
+    WHERE gpslat <= 39.336775); -- Latitude coordinate of Rio Maior
 
 -- 3 --
 -- Elements with the smallest amount of incidents (element must have atleast one incident to be elligible)
